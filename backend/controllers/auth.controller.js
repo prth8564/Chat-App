@@ -60,10 +60,13 @@ export const signup = async (req,res) => {
 
 //---------------Login--------------------------------------------------------------------------
 export const login = async (req,res) => {
-    const {userName , password} = req.body;
+    const {username , password} = req.body;
+    console.log(username);
     console.log(password);
 try{
-    const user = await User.findOne({userName});
+    console.log(username);
+    const user = await User.findOne({userName:username});
+    console.log(user.password);
     const isPassword = await bcryptjs.compare(password , user.password || "");
     if(!isPassword || !user){
         res.status(400).json({error:"Invalid username or password"});
